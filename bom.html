@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Explorando el BOM</title>
+</head>
+<body>
+  <h1>Bienvenido a la exploración del BOM</h1>
+  <p>Aprendamos a usar los objetos del Browser Object Model (BOM).</p>
+
+  <button onclick="redirigirAGoogle()">Ir a Google</button>
+  <button onclick="history.back()">Retroceder</button>
+  <button onclick="history.forward()">Avanzar</button>
+
+  <script>
+    // Parte 1: Alert de bienvenida
+    window.alert("¡Bienvenido a la exploración del BOM!");
+
+    // Abrir nueva ventana con mensaje y cerrarla a los 3 segundos
+    const Ventana = window.open("", "", "width=300,height=200");
+    if (Ventana) {
+      Ventana.document.write("<h2>¡Hola desde una nueva ventana!</h2>");
+      setTimeout(() => {
+        Ventana.close();
+      }, 3000);
+    }
+
+    // Mostrar tamaño de la ventana
+    console.log("Ancho de la ventana:", window.innerWidth);
+    console.log("Alto de la ventana:", window.innerHeight);
+
+    // Parte 2: Objeto location
+    console.log("URL completa:", location.href);
+    console.log("Dominio:", location.hostname);
+
+    function redirigirAGoogle() {
+      location.href = "https://www.google.com";
+    }
+
+    // Parte 3: Objeto history
+    console.log("Entradas en el historial:", history.length);
+
+    // Parte 4: Objeto navigator
+    console.log("Idioma del navegador:", navigator.language);
+    console.log("Sistema operativo:", navigator.platform);
+    console.log("¿Está en línea?:", navigator.onLine);
+
+    // Geolocalización
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          console.log("Latitud:", pos.coords.latitude);
+          console.log("Longitud:", pos.coords.longitude);
+        },
+        (error) => {
+          console.warn("Error obteniendo la ubicación:", error.message);
+        }
+      );
+    } else {
+      console.log("Geolocalización no está soportada en este navegador.");
+    }
+  </script>
+</body>
+</html>
